@@ -1,13 +1,13 @@
 /// <reference types="@sveltejs/kit" />
 
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
-// and what to do when importing types
 declare namespace App {
-	// interface Locals {}
-	// interface PageData {}
-	// interface Error {}
-	// interface Platform {}
+
+}
+
+declare namespace svelte.JSX {
+  interface HTMLAttributes<T extends HTMLButtonElement> {
+    variant: string
+  }
 }
 
 interface Theme {
@@ -16,6 +16,10 @@ interface Theme {
     contrastText: string
   }
   success: {
+    main: string
+    contrastText: string
+  }
+  warning: {
     main: string
     contrastText: string
   }

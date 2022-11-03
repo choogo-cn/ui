@@ -1,26 +1,24 @@
 <script lang="ts">
-  import {afterUpdate} from 'svelte'
   import {cls} from '$lib/util'
 
-  export let onClose = null as unknown as () => void
-  export let open = false
+
   let _cls = ''
   export {_cls as class}
+  export let onClose = null as unknown as () => void
+  export let open = false
 
-  let root: HTMLElement
 
-  afterUpdate(() => {
-    root && root.parentElement !== document.body && document.body.appendChild(root)
-  })
+  function handle(node: HTMLElement) {
+    document.body.appendChild(node)
+  }
 </script>
 
 {#if open}
-  <section class={cls('shadow fixed top-0 left-0 w-full h-full', _cls)}
+  <section use:handle class={cls('shadow fixed top-0 left-0 w-full h-full', _cls)}
     on:click={() => {
       open = false
       onClose?.()
-    }}
-    bind:this={root}>
+    }}>
     <section class="w-fit panel">
       <slot/>
     </section>

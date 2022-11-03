@@ -3,18 +3,23 @@
   import {css} from '@emotion/css'
 
   import {cls} from '$lib/util'
+  import {defaultTheme} from '$lib/components/ThemeProvider.svelte'
 
   let _cls = ''
 
   export {_cls as class}
   export let disabled = false
-  export let type: 'primary' | 'plain' = 'primary'
+  export let variant: 'contained' | 'text' | 'outlined' = 'contained'
   export let color: 'primary' | 'success' = 'primary'
   export let onClick = null as unknown as svelteHTML.MouseEventHandler<HTMLButtonElement>
-  const theme = getContext<Theme>('theme')
+  const theme = getContext<Theme>('theme') ?? defaultTheme
+
+  $: cssID = variant === 'contained' ? css`background-color: ${theme[color].main}; color: ${theme[color].contrastText}` :
+    variant === 'text' ? css`color: ${theme[color].contrastText}` :
+    variant === 'outlined' ? css`border-color: ${theme[color].main}` : ''
 </script>
 
-<button {type} {disabled} on:click={onClick} class={cls(_cls, type === 'primary' ? css`background-color: ${theme[color].main}; color: ${theme[color].contrastText}` : `background-color: transparent; color: ${theme[color].contrastText}`)}>
+<button {variant} {disabled} on:click={onClick} class={cls(_cls, cssID)}>
   <slot/>
 </button>
 
@@ -26,7 +31,12 @@
     appearance: none;
     border: none;
 
-    &:not([type="plain"]) {
+    &[variant="text"] {
+      padding: 0;
+      background-color: transparent;
+    }
+
+    &[type="contained"] {
       box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 
       &:active {
