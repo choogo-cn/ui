@@ -26,7 +26,7 @@
 {/if}
 
 <style lang="scss">
-  @use "$lib/css/env";
+  @use "$lib/style/env";
 
   .shadow {
     display: flex;
