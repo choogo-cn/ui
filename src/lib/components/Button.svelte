@@ -10,7 +10,7 @@
   export {_cls as class}
   export let disabled = false
   export let variant: 'contained' | 'text' | 'outlined' = 'contained'
-  export let color: 'primary' | 'success' = 'primary'
+  export let color: keyof Theme = 'primary'
   export let onClick = null as unknown as svelteHTML.MouseEventHandler<HTMLButtonElement>
   const theme = getContext<Theme>('theme') ?? defaultTheme
 
@@ -36,7 +36,7 @@
       background-color: transparent;
     }
 
-    &[type="contained"] {
+    &[variant="contained"] {
       box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
 
       &:active {
