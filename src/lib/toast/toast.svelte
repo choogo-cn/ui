@@ -1,7 +1,8 @@
 <script lang="ts">
+  import {v4 as uuid} from 'uuid'
   import {css} from '@emotion/css'
   import {cls} from '$lib/util'
-    import deepmerge from 'deepmerge';
+  import deepmerge from 'deepmerge'
 
   export let autoClose = true
 
@@ -26,26 +27,25 @@
 <script lang="ts" context="module">
   import {writable, get} from 'svelte/store'
   import {slide} from 'svelte/transition'
-  const list = writable<{id: number, msg: string}[]>([])
+  const list = writable<{id: string, msg: string}[]>([])
   const config = writable({autoClose: true})
-  let id = 0
 
   export function toast(msg: string, opts: {duration: number} = {duration: 3}) {
-    const _id = id++
+    const id = uuid()
 
-    list.set([...get(list), {msg, id: _id}])
+    list.set([...get(list), {msg, id}])
 
     get(config).autoClose && setTimeout(() => {
-      list.set(get(list).filter(item => item.id !== _id))
+      list.set(get(list).filter(item => item.id != id))
     }, opts.duration * 1e3)
   }
 </script>
 
 <section class={cls(cssID)}>
-  {#each $list as {msg}}
+  {#each $list as item (item.id)}
     <div class="text-center text-sm"
       transition:slide|local={{delay: 0, duration: 3e2}}
-    >{msg}</div>
+    >{item.msg},{item.id}</div>
   {/each}
 </section>
 
@@ -54,13 +54,11 @@
   section {
     position: fixed;
     margin: auto;
-    height: fit-content;
     display: flex;
     flex-direction: column;
     gap: .5rem;
     max-width: 80%;
     width: fit-content;
-
 
     & > div {
       background-color: #333;
@@ -71,6 +69,7 @@
       overflow: hidden;
       word-break: break-all;
       text-align: center;
+      position: relative;
     }
   }
 </style>
