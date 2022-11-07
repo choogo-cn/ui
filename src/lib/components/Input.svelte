@@ -8,7 +8,6 @@
   export let placeholder = ''
   export let variant: 'standard' | 'outline' = 'standard'
   export let color: keyof Theme = 'primary'
-  export let select = false
 
   const theme = getContext<Theme>('theme') ?? defaultTheme
 
@@ -18,7 +17,7 @@
 <input {placeholder} {variant} class={cls(cssID)}/>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @use "$lib/style/env";
 
   input {

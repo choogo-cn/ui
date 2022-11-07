@@ -5,6 +5,7 @@
   import deepmerge from 'deepmerge'
 
   export let autoClose = true
+  export let duration = 2
 
   const _position = {x: 'center', y: 'top'} as typeof position
 
@@ -17,6 +18,7 @@
   }
 
   $: $config.autoClose = autoClose
+  $: $config.duration = duration
   $: position = deepmerge(_position, position)
   $: cssID = css`${[
     position.x === 'left' ? 'left: 1rem' : position.x === 'right' ? 'right: 1rem' : 'left: 0; right: 0',
@@ -28,16 +30,17 @@
   import {writable, get} from 'svelte/store'
   import {slide} from 'svelte/transition'
   const list = writable<{id: string, msg: string}[]>([])
-  const config = writable({autoClose: true})
+  const config = writable({autoClose: true, duration: .5})
 
-  export function toast(msg: string, opts: {duration: number} = {duration: 3}) {
+  export function toast(msg: string, opts?: {duration?: number}) {
     const id = uuid()
+    const cv = get(config)
 
     list.set([...get(list), {msg, id}])
 
-    get(config).autoClose && setTimeout(() => {
+    cv.autoClose && setTimeout(() => {
       list.set(get(list).filter(item => item.id != id))
-    }, opts.duration * 1e3)
+    }, (opts?.duration ?? cv.duration) * 1e3)
   }
 </script>
 

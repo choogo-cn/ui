@@ -23,7 +23,7 @@
   <slot/>
 </button>
 
-<style lang="scss" scoped>
+<style lang="scss">
   button {
     padding: .5rem 1rem;
     border-radius: .2rem;
