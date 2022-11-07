@@ -27,7 +27,6 @@
 <script lang="ts" context="module">
   import {writable, get} from 'svelte/store'
   import {slide} from 'svelte/transition'
-  import {linear} from 'svelte/easing'
   const list = writable<{id: string, msg: string}[]>([])
   const config = writable({autoClose: true})
 
@@ -44,9 +43,7 @@
 
 <section class={cls(cssID)}>
   {#each $list as item (item.id)}
-    <div class="text-center text-sm"
-      transition:slide|local={{delay: 0, duration: 3e2, easing: linear}}
-    >{item.msg}</div>
+    <div class="text-center text-sm" transition:slide|local>{item.msg}</div>
   {/each}
 </section>
 
@@ -65,12 +62,14 @@
       background-color: #333;
       color: #fff;
       border-radius: .2rem;
-      padding: .5rem 1rem;
+      padding: 0 1rem;
+      height: 40px;
+      line-height: 40px;
       min-width: 9rem;
-      overflow: hidden;
       word-break: break-all;
       text-align: center;
       position: relative;
+      overflow: hidden;
     }
   }
 </style>

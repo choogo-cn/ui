@@ -26,5 +26,5 @@
     {/each}
   </Menu>
   <Dialog open={dialog.visible} onClose={() => dialog.visible = false}>ok</Dialog>
-  <Toast/>
+  <Toast autoClose={true}/>
 <!-- </ThemeProvider> -->
