@@ -3,7 +3,6 @@
   import {css} from '@emotion/css'
   import {defaultTheme} from './ThemeProvider.svelte'
   import {cls} from '$lib/util'
-    import {Input} from '$lib';
 
   export let placeholder = ''
   export let variant: 'standard' | 'outline' = 'standard'
@@ -18,7 +17,7 @@
 
 
 <style lang="scss">
-  @use "$lib/style/env";
+  @use "../styles/env";
 
   input {
     appearance: none;
