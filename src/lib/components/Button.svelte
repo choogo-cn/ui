@@ -1,5 +1,9 @@
-<script lang="ts">
+<script lang="ts" context="module">
   import {getContext} from 'svelte'
+  import chroma from 'chroma-js'
+</script>
+
+<script lang="ts">
   import {css} from '@emotion/css'
 
   import {cls} from '$lib/util'
@@ -15,9 +19,28 @@
   export let onClick = null as unknown as svelteHTML.MouseEventHandler<HTMLButtonElement>
   const theme = getContext<Theme>('theme') ?? defaultTheme
 
-  $: cssID = variant === 'contained' ? css`background-color: ${theme[color].main}; color: ${theme[color].contrastText}` :
-    variant === 'text' ? css`color: ${theme[color].main}` :
-    variant === 'outlined' ? css`border-color: ${theme[color].main}` : ''
+  let cssID = ''
+
+  $: {
+    switch (variant) {
+      case 'text': {
+        const c = chroma(theme[color].main)
+
+        cssID = css`color: ${theme[color].main};&[variant="text"]:hover{background-color: ${c.brighten(2).alpha(.2).css()};}`
+        break
+      }
+
+      case 'outlined': {
+        cssID = css`border-color: ${theme[color].main}`
+        break
+      }
+
+      case 'contained': {
+        cssID = css`background-color: ${theme[color].main}; color: ${theme[color].contrastText}`
+        break
+      }
+    }
+  }
 </script>
 
 <button {variant} {disabled} on:click={onClick} class={cls(_cls, cssID)}>
@@ -33,7 +56,7 @@
     border: none;
 
     &[variant="text"] {
-      padding: 0;
+      padding: .2rem .5rem;
       background-color: transparent;
     }
 
