@@ -14,6 +14,7 @@
 </script>
 
 {#if open}
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <section use:handle class={cls('shadow fixed top-0 left-0 w-full h-full', _cls)}
     on:click={() => {
       open = false

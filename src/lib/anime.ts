@@ -1,5 +1,4 @@
 import {css} from '@emotion/css'
-import {SvelteComponent} from 'svelte'
 
 const tick = () => new Promise(resolve => {
   requestAnimationFrame(resolve)

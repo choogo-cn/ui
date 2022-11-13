@@ -4,6 +4,7 @@
 
   import {cls} from '$lib/util'
   import {defaultTheme} from '$lib/components/ThemeProvider.svelte'
+  import type {Theme} from '$lib/type'
 
   let _cls = ''
 
@@ -15,7 +16,7 @@
   const theme = getContext<Theme>('theme') ?? defaultTheme
 
   $: cssID = variant === 'contained' ? css`background-color: ${theme[color].main}; color: ${theme[color].contrastText}` :
-    variant === 'text' ? css`color: ${theme[color].contrastText}` :
+    variant === 'text' ? css`color: ${theme[color].main}` :
     variant === 'outlined' ? css`border-color: ${theme[color].main}` : ''
 </script>
 

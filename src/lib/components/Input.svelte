@@ -1,6 +1,7 @@
 <script lang="ts">
   import {getContext} from 'svelte'
   import {css} from '@emotion/css'
+  import type {Theme} from '$lib/type'
   import {defaultTheme} from './ThemeProvider.svelte'
   import {cls} from '$lib/util'
 

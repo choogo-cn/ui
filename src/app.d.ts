@@ -1,27 +1,25 @@
 /// <reference types="@sveltejs/kit" />
 
 declare namespace App {
-
+  interface Theme {
+    primary: {
+      main: string
+      contrastText: string
+    }
+    success: {
+      main: string
+      contrastText: string
+    }
+    warning: {
+      main: string
+      contrastText: string
+    }
+  }
 }
 
 declare namespace svelte.JSX {
   interface HTMLAttributes<T extends HTMLButtonElement> {
     variant: string
-  }
-}
-
-interface Theme {
-  primary: {
-    main: string
-    contrastText: string
-  }
-  success: {
-    main: string
-    contrastText: string
-  }
-  warning: {
-    main: string
-    contrastText: string
   }
 }
 
