@@ -1,6 +1,6 @@
 <script lang="ts">
   import {Toast, toast} from '$lib/toast'
-  import {Account} from '$lib/icons'
+  import {Account, ArrowDropDown} from '$lib/icons'
   import {Button, ThemeProvider, Dialog, Input, Menu} from '$lib'
 
   let dialog = {

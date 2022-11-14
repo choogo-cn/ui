@@ -4,13 +4,7 @@
 </script>
 
 <script lang="ts">
-  type Props = ComponentProps<Box>
-  const {color, class: cls, style}: Props = {}
-  export {
-    color,
-    style,
-    cls as class
-  }
+  type $$Props = ComponentProps<Box>
 </script>
 
 
